@@ -15,9 +15,11 @@ function f = fitness_ind(Ind, data_ts, data_tr, classif)
         case 'NB'
             O1 = NaiveBayes.fit(data_tr(:,feats),data_tr(:,end));%,'dist',F);
             Ac1 = O1.predict(data_ts(:,feats));
+        case 'SVM'
+            svmStruct = svmtrain(data_tr(:,feats),data_tr(:,end));
+            Ac1 = svmclassify(svmStruct,data_ts(:,feats));
         otherwise
             % put your own classifier if needed
     end
     f = sum(Ac1~=data_ts(:,end)) / size(data_ts,1); % calcualte accuracy
-    f = f + length(feats)/(length(Ind)-2);  % penalty term for size
 end

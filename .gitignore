@@ -1,0 +1,17 @@
+*.csv
+*.asv
+*.fig
+*.jpg
+*.eps
+*.jpeg
+*.png
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.pf
+
+/results/*
+/result/*
+

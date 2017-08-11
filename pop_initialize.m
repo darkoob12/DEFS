@@ -4,14 +4,19 @@ function pop = pop_initialize(Ld,NF,NP)
     if Ld,
         load Pop;
     else
-        pop = zeros(NF+2,NP);
+        pop = zeros(NF+1,NP);
         for j=1:NP,
+            mu = mean(1:NF);
+            sig = std(1:NF);
             % chromosome
             pop(1:NF,j) = rand(NF,1);
             % adaptive parameters
-            pop(NF+1,j) = randi(round(NF/4),1);
-            % momentume of adaptation
-            pop(NF+2,j) = rand();
+            pop(end,j) = mu + randn * sig;
+            if pop(end,j) > NF
+                pop(end,j) = NF - abs(randn);
+            elseif pop(end,j) < 1
+                pop(end,j) = 1 + abs(randn);
+            end
         end
     end
 end
